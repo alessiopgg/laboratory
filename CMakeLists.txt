@@ -3,4 +3,4 @@ project(laboratory)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(laboratory main.cpp IObserver.h ISubject.h Item.cpp Item.h ShoppingList.cpp ShoppingList.h)
+add_executable(laboratory main.cpp IObserver.h ISubject.h Item.cpp Item.h ShoppingList.cpp ShoppingList.h User.cpp User.h)

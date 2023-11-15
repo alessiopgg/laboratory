@@ -14,12 +14,32 @@
 class ShoppingList: public ISubject{
 private:
     string name;
+    int totalQuantity;
+    float totalPrice;
     multimap<int,Item *>shoppingList;
     multimap<string,IObserver *>userList;
 public:
     ShoppingList(string n);
 
     void addItem(Item *item);
+    int totalQuantityList();
+    float totalPriceList();
+
+    void registerObserver(IObserver *observer) override;
+    void unregisterObserver(IObserver *observer) override;
+    void notify() override;
+
+    const string &getName() const;
+
+    void setName(const string &name);
+
+    int getTotalQuantity() const;
+
+    void setTotalQuantity(int totalQuantity);
+
+    float getTotalPrice() const;
+
+    void setTotalPrice(float totalPrice);
 
 
 };

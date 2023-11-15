@@ -12,7 +12,7 @@ using namespace std;
 
 class IObserver{
 public:
-    virtual void update(string basicString) =0;
+    virtual void update(int q,float p,string n) =0;
     virtual const string getUsername() const=0;
     virtual ~IObserver()=default;
 };
