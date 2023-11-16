@@ -9,18 +9,21 @@
 
 class User:public IObserver{
 private:
-    vector<ShoppingList*>userShoppingList;
-    string name;
+    multimap<string,ShoppingList*>userShoppingList;
+    string username;
 public:
     User(string n);
 
     void addList(ShoppingList *shoppingList);
     void update(int q,float p,string n)override;
 
-    const string &getName() const;
+    void add(Item *item,ShoppingList *shoppingList);
 
-    void setName(const string &name);
+    string getUsername() override;
+    void setUsername(const string &username);
+
 };
+
 
 
 #endif //LABORATORY_USER_H

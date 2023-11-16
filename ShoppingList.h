@@ -16,14 +16,16 @@ private:
     string name;
     int totalQuantity;
     float totalPrice;
-    multimap<int,Item *>shoppingList;
+    multimap<string,Item *>shoppingList;
     multimap<string,IObserver *>userList;
 public:
     ShoppingList(string n);
 
     void addItem(Item *item);
+    void removeItem(Item *item);
     int totalQuantityList();
     float totalPriceList();
+    void infoShoppingList();
 
     void registerObserver(IObserver *observer) override;
     void unregisterObserver(IObserver *observer) override;
@@ -32,6 +34,8 @@ public:
     const string &getName() const;
 
     void setName(const string &name);
+
+    void printUserList();
 
     int getTotalQuantity() const;
 

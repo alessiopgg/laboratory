@@ -13,6 +13,6 @@ using namespace std;
 class IObserver{
 public:
     virtual void update(int q,float p,string n) =0;
-    virtual const string getUsername() const=0;
+    virtual string getUsername() =0;
     virtual ~IObserver()=default;
 };
