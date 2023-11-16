@@ -73,6 +73,11 @@ void ShoppingList::notify() {
 
 }
 
+void ShoppingList::printUserList() {
+    for(auto u:userList)
+        cout<<u.first<<" ";
+}
+
 const string &ShoppingList::getName() const {
     return name;
 }
@@ -97,10 +102,6 @@ void ShoppingList::setTotalPrice(float totalPrice) {
     ShoppingList::totalPrice = totalPrice;
 }
 
-void ShoppingList::printUserList() {
-    for(auto u:userList)
-        cout<<u.first<<" ";
-}
 
 
 

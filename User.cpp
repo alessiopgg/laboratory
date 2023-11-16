@@ -19,6 +19,13 @@ void User::update(int q,float p,string n) {
     }
 }
 
+void User::add(Item *item, ShoppingList *shoppingList) {
+    for(auto s:userShoppingList){
+        if(s.first==shoppingList->getName())
+            shoppingList->addItem(item);
+    }
+}
+
 string User::getUsername() {
     return username;
 }
@@ -27,9 +34,3 @@ void User::setUsername(const string &username) {
     User::username = username;
 }
 
-void User::add(Item *item, ShoppingList *shoppingList) {
-    for(auto s:userShoppingList){
-        if(s.first==shoppingList->getName())
-        shoppingList->addItem(item);
-    }
-}

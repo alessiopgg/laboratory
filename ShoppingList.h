@@ -30,19 +30,13 @@ public:
     void registerObserver(IObserver *observer) override;
     void unregisterObserver(IObserver *observer) override;
     void notify() override;
-
-    const string &getName() const;
-
-    void setName(const string &name);
-
     void printUserList();
 
+    const string &getName() const;
+    void setName(const string &name);
     int getTotalQuantity() const;
-
     void setTotalQuantity(int totalQuantity);
-
     float getTotalPrice() const;
-
     void setTotalPrice(float totalPrice);
 
 

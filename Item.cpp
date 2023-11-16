@@ -8,7 +8,6 @@ Item::Item(string n, string c, int q, float p):name(n),category(c),quantity(q),p
 
 void Item::infoItem() {
     cout<<getName()<<" ("<<getCategory()<<", "<<getQuantity()<<", "<<getPrice()<<") "<<endl;
-
 }
 
 const string &Item::getName() const {
