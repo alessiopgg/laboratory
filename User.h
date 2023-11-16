@@ -5,7 +5,6 @@
 #ifndef LABORATORY_USER_H
 #define LABORATORY_USER_H
 #include "ShoppingList.h"
-#include <vector>
 
 class User:public IObserver{
 private:
@@ -22,7 +21,5 @@ public:
     void setUsername(const string &username);
 
 };
-
-
 
 #endif //LABORATORY_USER_H

@@ -101,10 +101,3 @@ float ShoppingList::getTotalPrice() const {
 void ShoppingList::setTotalPrice(float totalPrice) {
     ShoppingList::totalPrice = totalPrice;
 }
-
-
-
-
-
-
-

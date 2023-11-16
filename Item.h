@@ -29,5 +29,4 @@ public:
     void setPrice(float price);
 };
 
-
 #endif //LABORATORY_ITEM_H

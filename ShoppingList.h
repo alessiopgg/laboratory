@@ -39,8 +39,6 @@ public:
     float getTotalPrice() const;
     void setTotalPrice(float totalPrice);
 
-
 };
-
 
 #endif //LABORATORY_SHOPPINGLIST_H
