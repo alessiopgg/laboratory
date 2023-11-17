@@ -26,6 +26,13 @@ void User::add(Item *item, ShoppingList *shoppingList) {
     }
 }
 
+void User::remove(Item *item, ShoppingList *shoppingList) {
+    for(auto s:userShoppingList){
+        if(s.first==shoppingList->getName())
+            shoppingList->removeItem(item);
+    }
+}
+
 string User::getUsername() {
     return username;
 }

@@ -16,6 +16,8 @@ public:
     void addList(ShoppingList *shoppingList);
     void update(int q,float p,string n)override;
     void add(Item *item,ShoppingList *shoppingList);
+    void remove(Item *item,ShoppingList *shoppingList);
+
 
     string getUsername() override;
     void setUsername(const string &username);
