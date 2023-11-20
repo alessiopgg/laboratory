@@ -22,6 +22,10 @@ public:
     string getUsername() override;
     void setUsername(const string &username);
 
+    const multimap<string, ShoppingList *> &getUserShoppingList() const;
+
+    void setUserShoppingList(const multimap<string, ShoppingList *> &userShoppingList);
+
 };
 
 #endif //LABORATORY_USER_H

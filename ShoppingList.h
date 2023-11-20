@@ -31,6 +31,7 @@ public:
     void unregisterObserver(IObserver *observer) override;
     void notify() override;
     void printUserList();
+    int userListSize();
 
     const string &getName() const;
     void setName(const string &name);
@@ -38,7 +39,12 @@ public:
     void setTotalQuantity(int totalQuantity);
     float getTotalPrice() const;
     void setTotalPrice(float totalPrice);
+    const multimap<string, IObserver *> &getUserList() const;
+    void setUserList(const multimap<string, IObserver *> &userList);
 
+    const multimap<string, Item *> &getShoppingList() const;
+
+    void setShoppingList(const multimap<string, Item *> &shoppingList);
 };
 
 #endif //LABORATORY_SHOPPINGLIST_H

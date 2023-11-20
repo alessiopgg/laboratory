@@ -41,3 +41,11 @@ void User::setUsername(const string &username) {
     User::username = username;
 }
 
+const multimap<string, ShoppingList *> &User::getUserShoppingList() const {
+    return userShoppingList;
+}
+
+void User::setUserShoppingList(const multimap<string, ShoppingList *> &userShoppingList) {
+    User::userShoppingList = userShoppingList;
+}
+

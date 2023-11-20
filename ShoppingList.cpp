@@ -13,9 +13,15 @@ void ShoppingList::addItem(Item *item) {
 }
 
 void ShoppingList::removeItem(Item *item) {
-    shoppingList.erase(item->getName());
-    notify();
+    for(auto i:shoppingList){
+        if(i.first==item->getName()) {
+            shoppingList.erase(item->getName());
+            notify();
+        }else
+            return;
+    }
 }
+
 int ShoppingList::totalQuantityList() {
     int s=0;
     for (auto item:shoppingList) {
@@ -78,6 +84,11 @@ void ShoppingList::printUserList() {
         cout<<u.first<<" ";
 }
 
+int ShoppingList::userListSize() {
+    return userList.size();
+}
+
+
 const string &ShoppingList::getName() const {
     return name;
 }
@@ -101,3 +112,20 @@ float ShoppingList::getTotalPrice() const {
 void ShoppingList::setTotalPrice(float totalPrice) {
     ShoppingList::totalPrice = totalPrice;
 }
+
+const multimap<string, IObserver *> &ShoppingList::getUserList() const {
+    return userList;
+}
+
+void ShoppingList::setUserList(const multimap<string, IObserver *> &userList) {
+    ShoppingList::userList = userList;
+}
+
+const multimap<string, Item *> &ShoppingList::getShoppingList() const {
+    return shoppingList;
+}
+
+void ShoppingList::setShoppingList(const multimap<string, Item *> &shoppingList) {
+    ShoppingList::shoppingList = shoppingList;
+}
+
