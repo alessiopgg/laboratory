@@ -11,7 +11,7 @@
 #include "IObserver.h"
 using namespace std;
 
-class ISubject{
+class ISubject{ //interfaccia
 public:
     virtual void registerObserver(IObserver*observer)=0;
     virtual void unregisterObserver(IObserver*observer)=0;

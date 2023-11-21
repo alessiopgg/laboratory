@@ -5,7 +5,7 @@
 #include "gtest/gtest.h"
 #include "../Item.h"
 
-TEST(ItemTest,ConstructorTest){
+TEST(ItemTest,ConstructorTest){ //test costruttore
     Item item("name","category",5,7);
     EXPECT_EQ(item.getName(),"name");
     EXPECT_EQ(item.getCategory(),"category");
@@ -14,7 +14,7 @@ TEST(ItemTest,ConstructorTest){
 
 }
 
-TEST(ItemTest,SetTest){
+TEST(ItemTest,SetTest){ //test setMethod
     Item item("name","category",5,7);
 
     item.setName("apple");

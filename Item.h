@@ -7,7 +7,7 @@
 
 #include<iostream>
 using namespace std;
-
+//classe che rappresenta un elemento
 class Item {
 private:
     string name;
@@ -16,7 +16,6 @@ private:
     float price;
 public:
     Item(string n, string c, int q, float p);
-
     void infoItem();
 
     const string &getName() const;

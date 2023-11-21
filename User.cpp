@@ -6,12 +6,12 @@
 
 User::User(string n) : username(n) {}
 
-void User::addList(ShoppingList *shoppingList) {
+void User::addList(ShoppingList *shoppingList) { //metodo con cui user può aggiungersi alla lista
     userShoppingList.emplace(make_pair(shoppingList->getName(),shoppingList));
     shoppingList->registerObserver(this);
 }
 
-void User::update(int q,float p,string n) {
+void User::update(int q,float p,string n) { //implementazione update
     cout<<"\n("<<getUsername()<<") Notice! "<<n<<" changed."<<endl;
     for(auto l:userShoppingList){
         if(n==l.first)
@@ -19,17 +19,18 @@ void User::update(int q,float p,string n) {
     }
 }
 
-void User::add(Item *item, ShoppingList *shoppingList) {
+void User::add(Item *item, ShoppingList *shoppingList) { //metodo con cui user può aggiungere un item
     for(auto s:userShoppingList){
-        if(s.first==shoppingList->getName())
+        if(s.first==shoppingList->getName())//verifica che sia iscritto alla lista
             shoppingList->addItem(item);
     }
 }
 
-void User::remove(Item *item, ShoppingList *shoppingList) {
+void User::remove(Item *item, ShoppingList *shoppingList) { //metodo per rimuovere un item
     for(auto s:userShoppingList){
-        if(s.first==shoppingList->getName())
+        if(s.first==shoppingList->getName()) {
             shoppingList->removeItem(item);
+        }
     }
 }
 

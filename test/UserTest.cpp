@@ -7,7 +7,6 @@
 
 TEST(UserTest,ConstructorTest){
     User user("userName");
-
     ASSERT_EQ(user.getUsername(),"userName");
 }
 

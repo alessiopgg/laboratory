@@ -7,22 +7,17 @@
 
 ShoppingList::ShoppingList(string n):name(n) {}
 
-void ShoppingList::addItem(Item *item) {
+void ShoppingList::addItem(Item *item) { //aggiunge un item alla lista
     shoppingList.emplace(make_pair(item->getName(), item));
     notify();
 }
 
-void ShoppingList::removeItem(Item *item) {
-    for(auto i:shoppingList){
-        if(i.first==item->getName()) {
-            shoppingList.erase(item->getName());
-            notify();
-        }else
-            return;
-    }
+void ShoppingList::removeItem(Item *item) { //rimuove un item dalla lista
+    shoppingList.erase(item->getName());
+    notify();
 }
 
-int ShoppingList::totalQuantityList() {
+int ShoppingList::totalQuantityList() { //ritorna la quantità totale degli item nella lista
     int s=0;
     for (auto item:shoppingList) {
         s+=item.second->getQuantity();
@@ -31,7 +26,7 @@ int ShoppingList::totalQuantityList() {
     return getTotalQuantity();
 }
 
-float ShoppingList::totalPriceList() {
+float ShoppingList::totalPriceList() { //ritorna il prezzo totale degli item nella lista
     setTotalPrice(0);
     for (auto item:shoppingList) {
         setTotalPrice(getTotalPrice()+item.second->getPrice());
@@ -39,7 +34,7 @@ float ShoppingList::totalPriceList() {
     return getTotalPrice();
 }
 
-void ShoppingList::infoShoppingList() {
+void ShoppingList::infoShoppingList() { //metodo per visualizzare la lista
     cout<<"\n"<<getName()<<" [ ";
     printUserList();
     cout<<"]"<<endl << left << setw(20) << "Name"
@@ -73,7 +68,7 @@ void ShoppingList::unregisterObserver(IObserver *observer) {
 }
 
 void ShoppingList::notify() {
-    auto i=userList.end();
+    auto i=userList.end(); //notifica tutti gli utenti iscritti alla lista
     for(auto o: userList)
         o.second->update(totalQuantityList(),totalPriceList(),getName());
 

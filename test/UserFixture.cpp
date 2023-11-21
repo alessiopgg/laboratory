@@ -22,7 +22,7 @@ protected:
 
 
     virtual void TearDown()override{
-
+        user.getUserShoppingList().empty();
     }
 };
 

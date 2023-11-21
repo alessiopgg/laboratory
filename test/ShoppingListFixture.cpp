@@ -24,7 +24,7 @@ protected:
     }
 
     virtual void TearDown()override{
-
+        shoppingList.removeItem(&item1);
     }
 };
 

@@ -10,7 +10,7 @@
 #include<iostream>
 using namespace std;
 
-class IObserver{
+class IObserver{ //interfaccia
 public:
     virtual void update(int q,float p,string n) =0;
     virtual string getUsername() =0;

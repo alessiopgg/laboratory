@@ -10,7 +10,6 @@
 #include "ISubject.h"
 #include<map>
 
-
 class ShoppingList: public ISubject{
 private:
     string name;
@@ -26,7 +25,6 @@ public:
     int totalQuantityList();
     float totalPriceList();
     void infoShoppingList();
-
     void registerObserver(IObserver *observer) override;
     void unregisterObserver(IObserver *observer) override;
     void notify() override;

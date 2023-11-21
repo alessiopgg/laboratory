@@ -48,7 +48,6 @@ int main() {
     user2.add(&item15, &list3);
 
     user1.remove(&item1,&list1);
-    
 
     return 0;
 }
