@@ -4,10 +4,19 @@
 
 #include "Item.h"
 
-Item::Item(string n, string c, int q, float p):name(n),category(c),quantity(q),price(p){}
-
-void Item::infoItem() {
-    cout<<getName()<<" ("<<getCategory()<<", "<<getQuantity()<<", "<<getPrice()<<") "<<endl;
+Item::Item(string n, string c, int q, float p):name(n),category(c),checked(false){
+    try {
+        if (q >= 0)
+            quantity = q;
+        else
+            throw invalid_argument("quantity cannot have a negative value!");
+        if (p >= 0)
+            price = p;
+        else
+            throw invalid_argument("price cannot have a negative value!");
+    }catch(const invalid_argument&e){
+        cerr<<"Error creating "<<getName()<<": "<<e.what()<<endl;
+    }
 }
 
 const string &Item::getName() const {
@@ -40,6 +49,14 @@ float Item::getPrice() const {
 
 void Item::setPrice(float price) {
     Item::price = price;
+}
+
+bool Item::isChecked() const {
+    return checked;
+}
+
+void Item::setChecked(bool checked) {
+    Item::checked = checked;
 }
 
 

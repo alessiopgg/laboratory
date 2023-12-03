@@ -14,9 +14,9 @@ private:
     string category;
     int quantity;
     float price;
+    bool checked;
 public:
     Item(string n, string c, int q, float p);
-    void infoItem();
 
     const string &getName() const;
     void setName(const string &name);
@@ -26,6 +26,10 @@ public:
     void setQuantity(int quantity);
     float getPrice() const;
     void setPrice(float price);
+
+    bool isChecked() const;
+
+    void setChecked(bool checked);
 };
 
 #endif //LABORATORY_ITEM_H

@@ -12,6 +12,17 @@ TEST(ItemTest,ConstructorTest){ //test costruttore
     EXPECT_EQ(item.getQuantity(),5);
     EXPECT_EQ(item.getPrice(),7);
 
+    EXPECT_EQ(item.isChecked(), false);
+
+    testing::internal::CaptureStderr();
+    Item item1("name","category",-5,7);
+    string error_message1 = testing::internal::GetCapturedStderr();
+    EXPECT_EQ("Error creating name: quantity cannot have a negative value!\n", error_message1);
+
+    testing::internal::CaptureStderr();
+    Item item2("name", "category", 5, -3);
+    string error_message2 = testing::internal::GetCapturedStderr();
+    EXPECT_EQ("Error creating name: price cannot have a negative value!\n", error_message2);
 }
 
 TEST(ItemTest,SetTest){ //test setMethod
@@ -28,5 +39,8 @@ TEST(ItemTest,SetTest){ //test setMethod
 
     item.setPrice(29);
     EXPECT_EQ(item.getPrice(),29);
+
+    item.setChecked(true);
+    EXPECT_EQ(item.isChecked(),true);
 
 }
