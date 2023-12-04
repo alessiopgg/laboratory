@@ -17,7 +17,7 @@ TEST(ShoppingListTest, AddItemTest){
 
     shoppingList.addItem(&item);
 
-    ASSERT_EQ(shoppingList.totalQuantityList(),4);
+    ASSERT_EQ(shoppingList.totalQuantityList(),4);//controllo quanti elementi nella lista e quali devono essere comprati
     ASSERT_EQ(shoppingList.totalPriceList(),3);
 }
 

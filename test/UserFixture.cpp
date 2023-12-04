@@ -26,7 +26,7 @@ protected:
     }
 };
 
-TEST_F(UserFixture,AddListTest){
+TEST_F(UserFixture,AddListTest){//delete
     ASSERT_EQ(user.getUserShoppingList().size(),1);
     user.addList(&shoppingList1);
     ASSERT_EQ(user.getUserShoppingList().size(),2);

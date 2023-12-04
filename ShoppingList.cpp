@@ -7,31 +7,20 @@
 
 ShoppingList::ShoppingList(string n):name(n) {}
 
-void ShoppingList::addItem(Item *item) { //aggiunge un item alla lista
+void ShoppingList::addItem(shared_ptr<Item> item) { //aggiunge un item alla lista
     shoppingList.emplace(make_pair(item->getName(), item));
+    setTotalPriceList(getTotalPriceList()+item->getPrice()*item->getQuantity());
+    setUncheckedPriceList(getUncheckedPriceList()+item->getPrice()*item->getQuantity());
     notify();
 }
 
-void ShoppingList::removeItem(Item *item) { //rimuove un item dalla lista
+void ShoppingList::removeItem(shared_ptr<Item> item) { //rimuove un item dalla lista
     shoppingList.erase(item->getName());
+    item->setChecked(true);
+    checkedList.push_back(item);//aggiungo alla lista degli spuntati
+    setUncheckedPriceList(getUncheckedPriceList()-item->getPrice()*item->getQuantity());
+    setCheckedPriceList(getCheckedPriceList()+item->getPrice()*item->getQuantity());
     notify();
-}
-
-int ShoppingList::totalQuantityList() { //ritorna la quantità totale degli item nella lista
-    int s=0;
-    for (auto item:shoppingList) {
-        s+=item.second->getQuantity();
-    }
-    setTotalQuantity(s);
-    return getTotalQuantity();
-}
-
-float ShoppingList::totalPriceList() { //ritorna il prezzo totale degli item nella lista
-    setTotalPrice(0);
-    for (auto item:shoppingList) {
-        setTotalPrice(getTotalPrice()+item.second->getPrice());
-    }
-    return getTotalPrice();
 }
 
 void ShoppingList::infoShoppingList() { //metodo per visualizzare la lista
@@ -48,13 +37,22 @@ void ShoppingList::infoShoppingList() { //metodo per visualizzare la lista
         cout << setw(20) << item.second->getName()
                   << setw(15) << item.second->getCategory()
                   << setw(10) << item.second->getQuantity()
-                  << setw(10) << item.second->getPrice() << endl;
+                  << setw(10) << item.second->getPrice()*item.second->getQuantity()<< endl;
     }
     cout << string(60, '-') <<endl;
 
-    cout<<"Total quantity: "<<setw(15)<<totalQuantityList();
-    cout<<"Total price: "<<totalPriceList()<<"$"<<endl<<"\n\n";
+    cout<<"Unchecked:"<<getUncheckedPriceList()<<setw(10)<<"$"<<
+    "Checked:"<<getCheckedPriceList()<<setw(10)<<"$";
+    cout<<"Total price:"<<getTotalPriceList()<<"$"<<endl<<"\n";
 
+    for(auto itemC:checkedList){
+        cout<<"X ";
+        cout << setw(20) << itemC->getName()
+             << setw(15) << itemC->getCategory()
+             << setw(10) << itemC->getQuantity()
+             << setw(10) << itemC->getPrice()*itemC->getQuantity()<< endl;
+    }
+    cout<<"\n\n";
 
 }
 
@@ -70,7 +68,7 @@ void ShoppingList::unregisterObserver(IObserver *observer) {
 void ShoppingList::notify() {
     auto i=userList.end(); //notifica tutti gli utenti iscritti alla lista
     for(auto o: userList)
-        o.second->update(totalQuantityList(),totalPriceList(),getName());
+        o.second->update(getUncheckedPriceList(),getCheckedPriceList(),getTotalPriceList(),getName(),shoppingList.size());
 
 }
 
@@ -79,10 +77,36 @@ void ShoppingList::printUserList() {
         cout<<u.first<<" ";
 }
 
-int ShoppingList::userListSize() {
-    return userList.size();
-}
+void ShoppingList::filterCategory(string c) {
+    cout<<"\n"<<getName()<<" [ ";
+    printUserList();
+    cout<<"]"<<" Filter by "<<c<<endl << left << setw(20) << "Name"
+        << setw(15) << "Category"
+        << setw(10) << "Quantity"
+        << setw(10) << "Price" << endl;
 
+    cout << string(60, '-') <<endl;
+    for (const auto& item : shoppingList) {
+        if(item.second->getCategory()==c) {
+            cout << setw(20) << item.second->getName()
+                 << setw(15) << item.second->getCategory()
+                 << setw(10) << item.second->getQuantity()
+                 << setw(10) << item.second->getPrice() * item.second->getQuantity() << endl;
+        }
+    }
+    for(auto itemC:checkedList) {
+        if (itemC->getCategory() == c) {
+            cout << "X ";
+            cout << setw(20) << itemC->getName()
+                 << setw(15) << itemC->getCategory()
+                 << setw(10) << itemC->getQuantity()
+                 << setw(10) << itemC->getPrice() * itemC->getQuantity() << endl;
+        }
+    }
+    cout << string(60, '-') <<endl;
+
+
+}
 
 const string &ShoppingList::getName() const {
     return name;
@@ -90,22 +114,6 @@ const string &ShoppingList::getName() const {
 
 void ShoppingList::setName(const string &name) {
     ShoppingList::name = name;
-}
-
-int ShoppingList::getTotalQuantity() const {
-    return totalQuantity;
-}
-
-void ShoppingList::setTotalQuantity(int totalQuantity) {
-    ShoppingList::totalQuantity = totalQuantity;
-}
-
-float ShoppingList::getTotalPrice() const {
-    return totalPrice;
-}
-
-void ShoppingList::setTotalPrice(float totalPrice) {
-    ShoppingList::totalPrice = totalPrice;
 }
 
 const multimap<string, IObserver *> &ShoppingList::getUserList() const {
@@ -116,11 +124,36 @@ void ShoppingList::setUserList(const multimap<string, IObserver *> &userList) {
     ShoppingList::userList = userList;
 }
 
-const multimap<string, Item *> &ShoppingList::getShoppingList() const {
+const multimap<string, shared_ptr<Item>> &ShoppingList::getShoppingList() const {
     return shoppingList;
 }
 
-void ShoppingList::setShoppingList(const multimap<string, Item *> &shoppingList) {
+void ShoppingList::setShoppingList(const multimap<string, shared_ptr<Item> > &shoppingList) {
     ShoppingList::shoppingList = shoppingList;
 }
+
+float ShoppingList::getTotalPriceList() const {
+    return totalPriceList;
+}
+
+void ShoppingList::setTotalPriceList(float totalPriceList) {
+    ShoppingList::totalPriceList = totalPriceList;
+}
+
+float ShoppingList::getUncheckedPriceList() const {
+    return uncheckedPriceList;
+}
+
+void ShoppingList::setUncheckedPriceList(float uncheckedPriceList) {
+    ShoppingList::uncheckedPriceList = uncheckedPriceList;
+}
+
+float ShoppingList::getCheckedPriceList() const {
+    return checkedPriceList;
+}
+
+void ShoppingList::setCheckedPriceList(float checkedPriceList) {
+    ShoppingList::checkedPriceList = checkedPriceList;
+}
+
 

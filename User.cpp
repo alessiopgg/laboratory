@@ -6,12 +6,12 @@
 
 User::User(string n) : username(n) {}
 
-void User::addList(ShoppingList *shoppingList) { //metodo con cui user può aggiungersi alla lista
+void User::addList(shared_ptr<ShoppingList>shoppingList) { //metodo con cui user può aggiungersi alla lista
     userShoppingList.emplace(make_pair(shoppingList->getName(),shoppingList));
     shoppingList->registerObserver(this);
 }
 
-void User::update(int q,float p,string n) { //implementazione update
+void User::update(float u,float c,float t,string n,int un) { //implementazione update
     cout<<"\n("<<getUsername()<<") Notice! "<<n<<" changed."<<endl;
     for(auto l:userShoppingList){
         if(n==l.first)
@@ -19,14 +19,14 @@ void User::update(int q,float p,string n) { //implementazione update
     }
 }
 
-void User::add(Item *item, ShoppingList *shoppingList) { //metodo con cui user può aggiungere un item
+void User::add(shared_ptr<Item>item, shared_ptr<ShoppingList>shoppingList) { //metodo con cui user può aggiungere un item
     for(auto s:userShoppingList){
         if(s.first==shoppingList->getName())//verifica che sia iscritto alla lista
             shoppingList->addItem(item);
     }
 }
 
-void User::remove(Item *item, ShoppingList *shoppingList) { //metodo per rimuovere un item
+void User::remove(shared_ptr<Item>item, shared_ptr<ShoppingList>shoppingList) { //metodo per rimuovere un item
     for(auto s:userShoppingList){
         if(s.first==shoppingList->getName()) {
             shoppingList->removeItem(item);
@@ -42,11 +42,11 @@ void User::setUsername(const string &username) {
     User::username = username;
 }
 
-const multimap<string, ShoppingList *> &User::getUserShoppingList() const {
+const multimap<string, shared_ptr<ShoppingList>> &User::getUserShoppingList() const {
     return userShoppingList;
 }
 
-void User::setUserShoppingList(const multimap<string, ShoppingList *> &userShoppingList) {
+void User::setUserShoppingList(const multimap<string, shared_ptr<ShoppingList>> &userShoppingList) {
     User::userShoppingList = userShoppingList;
 }
 

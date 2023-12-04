@@ -5,17 +5,12 @@
 #include "Item.h"
 
 Item::Item(string n, string c, int q, float p):name(n),category(c),checked(false){
-    try {
-        if (q >= 0)
-            quantity = q;
-        else
-            throw invalid_argument("quantity cannot have a negative value!");
-        if (p >= 0)
-            price = p;
-        else
-            throw invalid_argument("price cannot have a negative value!");
-    }catch(const invalid_argument&e){
-        cerr<<"Error creating "<<getName()<<": "<<e.what()<<endl;
+    if (q < 0 || p < 0) {
+        throw invalid_argument("Quantity and price cannot have negative values!");
+    }
+    else{
+        quantity = q;
+        price = p;
     }
 }
 

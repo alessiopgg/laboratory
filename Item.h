@@ -26,9 +26,7 @@ public:
     void setQuantity(int quantity);
     float getPrice() const;
     void setPrice(float price);
-
     bool isChecked() const;
-
     void setChecked(bool checked);
 };
 

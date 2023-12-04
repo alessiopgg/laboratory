@@ -8,23 +8,21 @@
 
 class User:public IObserver{
 private:
-    multimap<string,ShoppingList*>userShoppingList;
+    multimap<string,shared_ptr<ShoppingList>>userShoppingList;
     string username;
 public:
     User(string n);
 
-    void addList(ShoppingList *shoppingList);
-    void update(int q,float p,string n)override;
-    void add(Item *item,ShoppingList *shoppingList);
-    void remove(Item *item,ShoppingList *shoppingList);
+    void addList(shared_ptr<ShoppingList>shoppingList);
+    void update(float u,float c,float t, string n, int un)override;
+    void add(shared_ptr<Item>item,shared_ptr<ShoppingList>shoppingList);
+    void remove(shared_ptr<Item>item,shared_ptr<ShoppingList>shoppingList);
 
 
-    string getUsername() override;
+    string getUsername();
     void setUsername(const string &username);
-
-    const multimap<string, ShoppingList *> &getUserShoppingList() const;
-
-    void setUserShoppingList(const multimap<string, ShoppingList *> &userShoppingList);
+    const multimap<string, shared_ptr<ShoppingList>> &getUserShoppingList() const;
+    void setUserShoppingList(const multimap<string, shared_ptr<ShoppingList>> &userShoppingList);
 
 };
 

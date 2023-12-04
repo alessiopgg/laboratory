@@ -9,40 +9,43 @@
 #include "Item.h"
 #include "ISubject.h"
 #include<map>
+#include <memory>
+#include "vector"
 
 class ShoppingList: public ISubject{
 private:
     string name;
-    int totalQuantity;
-    float totalPrice;
-    multimap<string,Item *>shoppingList;
+    float totalPriceList=0;
+    float uncheckedPriceList=0;
+    float checkedPriceList=0;
+    multimap<string,shared_ptr<Item>>shoppingList;
     multimap<string,IObserver *>userList;
+    vector<shared_ptr<Item>>checkedList;
+
 public:
     ShoppingList(string n);
 
-    void addItem(Item *item);
-    void removeItem(Item *item);
-    int totalQuantityList();
-    float totalPriceList();
+    void addItem(shared_ptr<Item> item);
+    void removeItem(shared_ptr<Item> item);
     void infoShoppingList();
     void registerObserver(IObserver *observer) override;
     void unregisterObserver(IObserver *observer) override;
     void notify() override;
     void printUserList();
-    int userListSize();
+    void filterCategory(string c);
 
     const string &getName() const;
     void setName(const string &name);
-    int getTotalQuantity() const;
-    void setTotalQuantity(int totalQuantity);
-    float getTotalPrice() const;
-    void setTotalPrice(float totalPrice);
     const multimap<string, IObserver *> &getUserList() const;
     void setUserList(const multimap<string, IObserver *> &userList);
-
-    const multimap<string, Item *> &getShoppingList() const;
-
-    void setShoppingList(const multimap<string, Item *> &shoppingList);
+    const multimap<string, shared_ptr<Item> > &getShoppingList() const;
+    void setShoppingList(const multimap<string, shared_ptr<Item>> &shoppingList);
+    float getTotalPriceList() const;
+    float getUncheckedPriceList() const;
+    void setUncheckedPriceList(float uncheckedPriceList);
+    float getCheckedPriceList() const;
+    void setCheckedPriceList(float checkedPriceList);
+    void setTotalPriceList(float totalPriceList);
 };
 
 #endif //LABORATORY_SHOPPINGLIST_H
