@@ -34,6 +34,14 @@ void User::remove(shared_ptr<Item>item, shared_ptr<ShoppingList>shoppingList) { 
     }
 }
 
+void User::filterList(string c, shared_ptr<ShoppingList> shoppingList) {
+    for (auto s: userShoppingList) {
+        if (s.first == shoppingList->getName()) {
+            shoppingList->filterCategory(c);
+        }
+    }
+}
+
 string User::getUsername() {
     return username;
 }
@@ -49,4 +57,5 @@ const multimap<string, shared_ptr<ShoppingList>> &User::getUserShoppingList() co
 void User::setUserShoppingList(const multimap<string, shared_ptr<ShoppingList>> &userShoppingList) {
     User::userShoppingList = userShoppingList;
 }
+
 

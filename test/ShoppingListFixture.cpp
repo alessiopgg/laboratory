@@ -8,44 +8,46 @@
 
 class ShoppingListFixture : public ::testing::Test{
 protected:
-    ShoppingList shoppingList;
+    shared_ptr<ShoppingList> shoppingList= make_shared<ShoppingList>("Groceries");
 
-    Item item1{"Apple", "Fruit", 3, 1.5};
-    Item item2{"Milk", "Dairy", 2, 2};
-    User user1{"Alice"};
-    User user2{"Mario"};
+    shared_ptr<Item> item1=make_shared<Item>("Apple", "Fruit", 3, 1.5);
+    shared_ptr<Item> item2=make_shared<Item>("Milk", "Dairy", 2, 2);
+    shared_ptr<User> user1=make_shared<User>("Alice");
+    shared_ptr<User> user2=make_shared<User>("Mario");
 
-    ShoppingListFixture() : shoppingList("Groceries") {
-        shoppingList.registerObserver(&user1);
-    }
 
     virtual void SetUp() override {
-       shoppingList.addItem(&item1);
+        shoppingList->registerObserver(user1.get());
+        shoppingList->addItem(item1);
     }
 
     virtual void TearDown()override{
-        shoppingList.removeItem(&item1);
+        shoppingList->removeItem(item1);
     }
 };
 
 TEST_F(ShoppingListFixture ,RegisterObserverTest){
-    shoppingList.registerObserver(&user2);
-    ASSERT_EQ(shoppingList.userListSize(),2);
+    shoppingList->registerObserver(user2.get());
+    ASSERT_EQ(shoppingList->getUserList().size(),2);
 }
 
 TEST_F(ShoppingListFixture ,UnRegisterObserverTest){
-    shoppingList.unregisterObserver(&user2);
-    ASSERT_EQ(shoppingList.userListSize(),1);
+    shoppingList->unregisterObserver(user2.get());
+    ASSERT_EQ(shoppingList->getUserList().size(),1);
 }
 
-TEST_F(ShoppingListFixture,TotalQuantityTest){
-    ASSERT_EQ(shoppingList.totalQuantityList(),3);
-    shoppingList.addItem(&item2);
-    ASSERT_EQ(shoppingList.totalQuantityList(),5);
+TEST_F(ShoppingListFixture,PriceTest){
+    ASSERT_EQ(shoppingList->getTotalPriceList(),3*1.5);
+    ASSERT_EQ(shoppingList->getUncheckedPriceList(),3*1.5);
+    ASSERT_EQ(shoppingList->getCheckedPriceList(),0);
+    shoppingList->addItem(item2);
+    ASSERT_EQ(shoppingList->getTotalPriceList(),3*1.5+4);
+    ASSERT_EQ(shoppingList->getUncheckedPriceList(),3*1.5+4);
+    ASSERT_EQ(shoppingList->getCheckedPriceList(),0);
+    shoppingList->removeItem(item2);
+    ASSERT_EQ(shoppingList->getTotalPriceList(),3*1.5+4);
+    ASSERT_EQ(shoppingList->getUncheckedPriceList(),3*1.5);
+    ASSERT_EQ(shoppingList->getCheckedPriceList(),4);
+
 }
 
-TEST_F(ShoppingListFixture,TotalPriceTest){
-    ASSERT_EQ(shoppingList.totalPriceList(),1.5);
-    shoppingList.addItem(&item2);
-    ASSERT_EQ(shoppingList.totalPriceList(),3.5);
-}

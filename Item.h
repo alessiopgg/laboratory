@@ -12,8 +12,8 @@ class Item {
 private:
     string name;
     string category;
-    int quantity;
-    float price;
+    int quantity=0;
+    float price=0;
     bool checked;
 public:
     Item(string n, string c, int q, float p);

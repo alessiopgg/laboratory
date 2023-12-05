@@ -5,12 +5,19 @@
 #include "Item.h"
 
 Item::Item(string n, string c, int q, float p):name(n),category(c),checked(false){
+    try{
     if (q < 0 || p < 0) {
         throw invalid_argument("Quantity and price cannot have negative values!");
     }
     else{
         quantity = q;
         price = p;
+    }
+        }catch(const invalid_argument&e) {
+                cout << "\nInvalid argument for " << getName() << "! Converted into absolute value..." << endl;
+                quantity=abs(q);
+                price=abs(p);
+
     }
 }
 

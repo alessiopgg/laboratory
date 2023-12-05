@@ -5,8 +5,7 @@
 #include "gtest/gtest.h"
 #include "../User.h"
 
-TEST(UserTest,ConstructorTest){
-    User user("userName");
-    ASSERT_EQ(user.getUsername(),"userName");
+TEST(UserTest,ConstructorTest) {
+    shared_ptr<User> user = make_shared<User>("userName");
+    ASSERT_EQ(user->getUsername(), "userName");
 }
-

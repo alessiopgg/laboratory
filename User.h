@@ -17,7 +17,7 @@ public:
     void update(float u,float c,float t, string n, int un)override;
     void add(shared_ptr<Item>item,shared_ptr<ShoppingList>shoppingList);
     void remove(shared_ptr<Item>item,shared_ptr<ShoppingList>shoppingList);
-
+    void filterList(string c,shared_ptr<ShoppingList>shoppingList);
 
     string getUsername();
     void setUsername(const string &username);

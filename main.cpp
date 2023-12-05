@@ -15,7 +15,6 @@ int main() {
     user2->addList(list2);
     user2->addList(list3);
 
-
     shared_ptr<Item> item1 = make_shared<Item>("Apples", "Fruits", 5, 1.5);
     shared_ptr<Item> item2 = make_shared<Item>("Bread", "Groceries", 2, 2.0);
     shared_ptr<Item> item3 = make_shared<Item>("Milk", "Dairy", 1, 3.0);
@@ -49,9 +48,9 @@ int main() {
     user2->add(item15, list3);
 
     user1->remove(item1,list1);
+    user2->remove(item7, list2);
 
-
-    list2->filterCategory("Vegetables");
+    user1->filterList("Vegetables",list2);
 
     return 0;
 }

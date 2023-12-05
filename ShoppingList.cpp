@@ -80,7 +80,7 @@ void ShoppingList::printUserList() {
 void ShoppingList::filterCategory(string c) {
     cout<<"\n"<<getName()<<" [ ";
     printUserList();
-    cout<<"]"<<" Filter by "<<c<<endl << left << setw(20) << "Name"
+    cout<<"]"<<" Filter by "<<c<<":"<<endl << left << setw(20) << "Name"
         << setw(15) << "Category"
         << setw(10) << "Quantity"
         << setw(10) << "Price" << endl;
@@ -104,7 +104,6 @@ void ShoppingList::filterCategory(string c) {
         }
     }
     cout << string(60, '-') <<endl;
-
 
 }
 
