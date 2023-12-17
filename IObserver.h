@@ -8,11 +8,11 @@
 #endif //LABORATORY_IOBSERVER_H
 
 #include<iostream>
+#include <memory>
 using namespace std;
 
 class IObserver{ //interfaccia
 public:
-    virtual void update(float u,float c,float t,string n,int un) =0;
-    virtual string getUsername()=0;
+    virtual void update() =0;
     virtual ~IObserver()=default;
 };

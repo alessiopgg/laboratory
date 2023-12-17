@@ -18,7 +18,6 @@ TEST(ItemTest,ConstructorTest){ //test costruttore
     EXPECT_EQ(item1->getQuantity(),5);
     EXPECT_EQ(item1->getPrice(),7);
 
-
 }
 
 TEST(ItemTest,SetTest){ //test setMethod
@@ -35,6 +34,18 @@ TEST(ItemTest,SetTest){ //test setMethod
 
     item->setPrice(29);
     EXPECT_EQ(item->getPrice(),29);
+
+    item->setQuantity(-23);
+    EXPECT_EQ(item->getQuantity(),23);
+
+    item->setPrice(-29);
+    EXPECT_EQ(item->getPrice(),29);
+
+    item->setQuantity(0);
+    EXPECT_EQ(item->getQuantity(),0);
+
+    item->setPrice(0);
+    EXPECT_EQ(item->getPrice(),0);
 
     item->setChecked(true);
     EXPECT_EQ(item->isChecked(),true);

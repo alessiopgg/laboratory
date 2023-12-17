@@ -11,15 +11,16 @@ private:
     multimap<string,shared_ptr<ShoppingList>>userShoppingList;
     string username;
 public:
-    User(string n);
+    User(const string &n);
 
     void addList(shared_ptr<ShoppingList>shoppingList);
-    void update(float u,float c,float t, string n, int un)override;
+    void update()override;
     void add(shared_ptr<Item>item,shared_ptr<ShoppingList>shoppingList);
     void remove(shared_ptr<Item>item,shared_ptr<ShoppingList>shoppingList);
     void filterList(string c,shared_ptr<ShoppingList>shoppingList);
+    void printList(shared_ptr<ShoppingList>shoppingList);
 
-    string getUsername();
+    const string &getUsername() const;
     void setUsername(const string &username);
     const multimap<string, shared_ptr<ShoppingList>> &getUserShoppingList() const;
     void setUserShoppingList(const multimap<string, shared_ptr<ShoppingList>> &userShoppingList);

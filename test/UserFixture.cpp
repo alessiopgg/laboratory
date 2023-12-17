@@ -13,11 +13,11 @@ protected:
     shared_ptr<ShoppingList> shoppingList=make_shared<ShoppingList>("Groceries");
     shared_ptr<ShoppingList> shoppingList1= make_shared<ShoppingList>("Food");
 
-    virtual void SetUp() override {
+    void SetUp() override {
         user->addList(shoppingList);
     }
 
-    virtual void TearDown()override{
+    void TearDown()override{
         user->getUserShoppingList().empty();
     }
 };

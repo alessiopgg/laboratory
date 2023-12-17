@@ -16,7 +16,7 @@ private:
     float price=0;
     bool checked;
 public:
-    Item(string n, string c, int q, float p);
+    Item(const string &n, const string &c, int q, float p);
 
     const string &getName() const;
     void setName(const string &name);

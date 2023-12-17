@@ -1,4 +1,3 @@
-#include <iostream>
 #include "ShoppingList.h"
 #include "User.h"
 
@@ -49,6 +48,10 @@ int main() {
 
     user1->remove(item1,list1);
     user2->remove(item7, list2);
+
+    user1->printList(list1);
+    user1->printList(list2);
+    user2->printList(list3);
 
     user1->filterList("Vegetables",list2);
 

@@ -4,19 +4,15 @@
 
 #include "User.h"
 
-User::User(string n) : username(n) {}
+User::User(const string &n) : username(n) {}
 
 void User::addList(shared_ptr<ShoppingList>shoppingList) { //metodo con cui user può aggiungersi alla lista
     userShoppingList.emplace(make_pair(shoppingList->getName(),shoppingList));
     shoppingList->registerObserver(this);
 }
 
-void User::update(float u,float c,float t,string n,int un) { //implementazione update
-    cout<<"\n("<<getUsername()<<") Notice! "<<n<<" changed."<<endl;
-    for(auto l:userShoppingList){
-        if(n==l.first)
-            l.second->infoShoppingList();
-    }
+void User::update() {
+    cout<<"\n("<<getUsername()<<") Notice! "<<endl;
 }
 
 void User::add(shared_ptr<Item>item, shared_ptr<ShoppingList>shoppingList) { //metodo con cui user può aggiungere un item
@@ -37,13 +33,16 @@ void User::remove(shared_ptr<Item>item, shared_ptr<ShoppingList>shoppingList) { 
 void User::filterList(string c, shared_ptr<ShoppingList> shoppingList) {
     for (auto s: userShoppingList) {
         if (s.first == shoppingList->getName()) {
-            shoppingList->filterCategory(c);
+            shoppingList->filterCategory(c,getUsername());
         }
     }
 }
-
-string User::getUsername() {
-    return username;
+void User::printList(shared_ptr<ShoppingList> shoppingList) {
+    for (auto s: userShoppingList) {
+        if (s.first == shoppingList->getName()) {
+            shoppingList->infoShoppingList(getUsername());
+        }
+    }
 }
 
 void User::setUsername(const string &username) {
@@ -57,5 +56,11 @@ const multimap<string, shared_ptr<ShoppingList>> &User::getUserShoppingList() co
 void User::setUserShoppingList(const multimap<string, shared_ptr<ShoppingList>> &userShoppingList) {
     User::userShoppingList = userShoppingList;
 }
+
+const string &User::getUsername() const {
+    return username;
+}
+
+
 
 

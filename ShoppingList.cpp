@@ -5,7 +5,7 @@
 #include <iomanip>
 #include "ShoppingList.h"
 
-ShoppingList::ShoppingList(string n):name(n) {}
+ShoppingList::ShoppingList(const string &n):name(n) {}
 
 void ShoppingList::addItem(shared_ptr<Item> item) { //aggiunge un item alla lista
     shoppingList.emplace(make_pair(item->getName(), item));
@@ -15,18 +15,20 @@ void ShoppingList::addItem(shared_ptr<Item> item) { //aggiunge un item alla list
 }
 
 void ShoppingList::removeItem(shared_ptr<Item> item) { //rimuove un item dalla lista
-    shoppingList.erase(item->getName());
-    item->setChecked(true);
-    checkedList.push_back(item);//aggiungo alla lista degli spuntati
-    setUncheckedPriceList(getUncheckedPriceList()-item->getPrice()*item->getQuantity());
-    setCheckedPriceList(getCheckedPriceList()+item->getPrice()*item->getQuantity());
-    notify();
+    auto it = shoppingList.find(item->getName());
+    if (it != shoppingList.end()) {
+        shoppingList.erase(item->getName());
+        item->setChecked(true);
+        checkedList.push_back(item);//aggiungo alla lista degli spuntati
+        setUncheckedPriceList(getUncheckedPriceList() - item->getPrice() * item->getQuantity());
+        setCheckedPriceList(getCheckedPriceList() + item->getPrice() * item->getQuantity());
+        notify();
+    }
 }
 
-void ShoppingList::infoShoppingList() { //metodo per visualizzare la lista
-    cout<<"\n"<<getName()<<" [ ";
-    printUserList();
-    cout<<"]"<<endl << left << setw(20) << "Name"
+void ShoppingList::infoShoppingList(const string &n) { //metodo per visualizzare la lista
+    cout<<"\n"<<getName()<<" [ "<<n;
+    cout<<" ]"<<endl << left << setw(20) << "Name"
               << setw(15) << "Category"
               << setw(10) << "Quantity"
               << setw(10) << "Price" << endl;
@@ -57,30 +59,23 @@ void ShoppingList::infoShoppingList() { //metodo per visualizzare la lista
 }
 
 void ShoppingList::registerObserver(IObserver *observer) {
-    userList.insert(make_pair(observer->getUsername(), observer));
+    userList.push_back(observer);
 }
 
 void ShoppingList::unregisterObserver(IObserver *observer) {
-    userList.erase(observer->getUsername());
-
+    userList.remove(observer);
 }
 
 void ShoppingList::notify() {
     auto i=userList.end(); //notifica tutti gli utenti iscritti alla lista
     for(auto o: userList)
-        o.second->update(getUncheckedPriceList(),getCheckedPriceList(),getTotalPriceList(),getName(),shoppingList.size());
+        o->update();
 
 }
 
-void ShoppingList::printUserList() {
-    for(auto u:userList)
-        cout<<u.first<<" ";
-}
-
-void ShoppingList::filterCategory(string c) {
-    cout<<"\n"<<getName()<<" [ ";
-    printUserList();
-    cout<<"]"<<" Filter by "<<c<<":"<<endl << left << setw(20) << "Name"
+void ShoppingList::filterCategory(const string &c,const string &n) {
+    cout<<"\n"<<getName()<<" [ "<<n;
+    cout<<" ]"<<" Filter by "<<c<<":"<<endl << left << setw(20) << "Name"
         << setw(15) << "Category"
         << setw(10) << "Quantity"
         << setw(10) << "Price" << endl;
@@ -111,26 +106,6 @@ const string &ShoppingList::getName() const {
     return name;
 }
 
-void ShoppingList::setName(const string &name) {
-    ShoppingList::name = name;
-}
-
-const multimap<string, IObserver *> &ShoppingList::getUserList() const {
-    return userList;
-}
-
-void ShoppingList::setUserList(const multimap<string, IObserver *> &userList) {
-    ShoppingList::userList = userList;
-}
-
-const multimap<string, shared_ptr<Item>> &ShoppingList::getShoppingList() const {
-    return shoppingList;
-}
-
-void ShoppingList::setShoppingList(const multimap<string, shared_ptr<Item> > &shoppingList) {
-    ShoppingList::shoppingList = shoppingList;
-}
-
 float ShoppingList::getTotalPriceList() const {
     return totalPriceList;
 }
@@ -154,5 +129,10 @@ float ShoppingList::getCheckedPriceList() const {
 void ShoppingList::setCheckedPriceList(float checkedPriceList) {
     ShoppingList::checkedPriceList = checkedPriceList;
 }
+
+const list<IObserver *> &ShoppingList::getUserList() const {
+    return userList;
+}
+
 
 

@@ -16,12 +16,12 @@ protected:
     shared_ptr<User> user2=make_shared<User>("Mario");
 
 
-    virtual void SetUp() override {
+    void SetUp() override {
         shoppingList->registerObserver(user1.get());
         shoppingList->addItem(item1);
     }
 
-    virtual void TearDown()override{
+    void TearDown()override{
         shoppingList->removeItem(item1);
     }
 };
@@ -32,6 +32,7 @@ TEST_F(ShoppingListFixture ,RegisterObserverTest){
 }
 
 TEST_F(ShoppingListFixture ,UnRegisterObserverTest){
+    shoppingList->registerObserver(user2.get());
     shoppingList->unregisterObserver(user2.get());
     ASSERT_EQ(shoppingList->getUserList().size(),1);
 }
@@ -40,10 +41,12 @@ TEST_F(ShoppingListFixture,PriceTest){
     ASSERT_EQ(shoppingList->getTotalPriceList(),3*1.5);
     ASSERT_EQ(shoppingList->getUncheckedPriceList(),3*1.5);
     ASSERT_EQ(shoppingList->getCheckedPriceList(),0);
+
     shoppingList->addItem(item2);
     ASSERT_EQ(shoppingList->getTotalPriceList(),3*1.5+4);
     ASSERT_EQ(shoppingList->getUncheckedPriceList(),3*1.5+4);
     ASSERT_EQ(shoppingList->getCheckedPriceList(),0);
+
     shoppingList->removeItem(item2);
     ASSERT_EQ(shoppingList->getTotalPriceList(),3*1.5+4);
     ASSERT_EQ(shoppingList->getUncheckedPriceList(),3*1.5);
