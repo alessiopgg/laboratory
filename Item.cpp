@@ -4,20 +4,11 @@
 
 #include "Item.h"
 
-Item::Item(const string &n, const string &c, int q, float p):name(n),category(c),checked(false){
-    try{
+Item::Item(const string &n, const string &c, int q, float p) : name(n), category(c), checked(false), quantity(q),
+                                                               price(p) {
     if (q < 0 || p < 0) {
-        throw invalid_argument("Quantity and price cannot have negative values!");
-    }
-    else{
-        quantity = q;
-        price = p;
-    }
-        }catch(const invalid_argument&e) {
-                cout << "\nInvalid argument for " << getName() << "! Converted into absolute value..." << endl;
-                quantity=abs(q);
-                price=abs(p);
-
+        quantity = abs(q);
+        price = abs(p);
     }
 }
 
@@ -42,16 +33,10 @@ int Item::getQuantity() const {
 }
 
 void Item::setQuantity(int quantity) {
-    try{
         if (quantity<0) {
-            throw invalid_argument("Quantity cannot have negative values!");
+            quantity = abs(quantity);
         }
-        else{
-            Item::quantity = quantity;
-        }
-    }catch(const invalid_argument&e) {
-        cout << "\nInvalid argument for " << getName() << "! Converted into absolute value..." << endl;
-        Item::quantity = abs(quantity);    }
+    this->quantity = quantity;
 }
 
 float Item::getPrice() const {
@@ -59,17 +44,10 @@ float Item::getPrice() const {
 }
 
 void Item::setPrice(float price) {
-    try{
-        if (price<0) {
-            throw invalid_argument("Price cannot have negative values!");
-        }
-        else{
-            Item::price = price;
-        }
-    }catch(const invalid_argument&e) {
-        cout << "\nInvalid argument for " << getName() << "! Converted into absolute value..." << endl;
-        Item::price = abs(price);
+    if (price < 0) {
+        price = abs(price);
     }
+    this->price = price;
 }
 
 bool Item::isChecked() const {

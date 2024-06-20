@@ -31,15 +31,19 @@ TEST_F(UserFixture,AddTest){
     ASSERT_EQ(shoppingList->getTotalPriceList(),3*1.5+4);
 }
 
-TEST_F(UserFixture,RemoveTest){
-    user->add(item1,shoppingList);
-    user->add(item2,shoppingList);
-    ASSERT_EQ(shoppingList->getUncheckedPriceList(),3*1.5+4);
-    user->remove(item1,shoppingList);
-    ASSERT_EQ(shoppingList->getCheckedPriceList(),3*1.5);
-    ASSERT_EQ(shoppingList->getUncheckedPriceList(),4);
-
+TEST_F(UserFixture, RemoveTest) {
+    user->add(item1, shoppingList);
+    user->add(item2, shoppingList);
+    ASSERT_EQ(shoppingList->getUncheckedPriceList(), 3 * 1.5 + 4);
+    user->remove(item1, shoppingList);
+    ASSERT_EQ(shoppingList->getCheckedPriceList(), 3 * 1.5);
+    ASSERT_EQ(shoppingList->getUncheckedPriceList(), 4);
 }
 
-
+TEST_F(UserFixture, UpdateTest) {
+    testing::internal::CaptureStdout();
+    user->update();
+    std::string output = testing::internal::GetCapturedStdout();
+    ASSERT_EQ(output, "\n(Alice) Notice! \n");
+}
 

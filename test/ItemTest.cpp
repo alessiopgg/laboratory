@@ -14,6 +14,7 @@ TEST(ItemTest,ConstructorTest){ //test costruttore
     EXPECT_EQ(item->getPrice(),7);
     EXPECT_EQ(item->isChecked(), false);
 
+    //test per valori negativi
     shared_ptr<Item>item1=make_shared<Item>("name","category",-5,-7);
     EXPECT_EQ(item1->getQuantity(),5);
     EXPECT_EQ(item1->getPrice(),7);
@@ -33,21 +34,25 @@ TEST(ItemTest,SetTest){ //test setMethod
     EXPECT_EQ(item->getQuantity(),23);
 
     item->setPrice(29);
-    EXPECT_EQ(item->getPrice(),29);
+    EXPECT_EQ(item->getPrice(), 29);
 
+    //test con valori negativi
     item->setQuantity(-23);
-    EXPECT_EQ(item->getQuantity(),23);
+    EXPECT_EQ(item->getQuantity(), 23);
 
     item->setPrice(-29);
-    EXPECT_EQ(item->getPrice(),29);
+    EXPECT_EQ(item->getPrice(), 29);
+
+    item->setQuantity(-5);
+    EXPECT_EQ(item->getQuantity(), 5);
 
     item->setQuantity(0);
-    EXPECT_EQ(item->getQuantity(),0);
+    EXPECT_EQ(item->getQuantity(), 0);
 
     item->setPrice(0);
-    EXPECT_EQ(item->getPrice(),0);
+    EXPECT_EQ(item->getPrice(), 0);
 
     item->setChecked(true);
-    EXPECT_EQ(item->isChecked(),true);
+    EXPECT_EQ(item->isChecked(), true);
 
 }
