@@ -9,15 +9,19 @@
 TEST(ItemTest,ConstructorTest){ //test costruttore
     shared_ptr<Item>item=make_shared<Item>("name","category",5,7);
     EXPECT_EQ(item->getName(),"name");
-    EXPECT_EQ(item->getCategory(),"category");
-    EXPECT_EQ(item->getQuantity(),5);
-    EXPECT_EQ(item->getPrice(),7);
+    EXPECT_EQ(item->getCategory(), "category");
+    EXPECT_EQ(item->getQuantity(), 5);
+    EXPECT_EQ(item->getPrice(), 7);
     EXPECT_EQ(item->isChecked(), false);
 
     //test per valori negativi
-    shared_ptr<Item>item1=make_shared<Item>("name","category",-5,-7);
-    EXPECT_EQ(item1->getQuantity(),5);
-    EXPECT_EQ(item1->getPrice(),7);
+    shared_ptr<Item> item1 = make_shared<Item>("name", "category", -5, -7);
+    EXPECT_EQ(item1->getQuantity(), 5);
+    EXPECT_EQ(item1->getPrice(), 7);
+
+    shared_ptr<Item> item2 = make_shared<Item>("name", "category", 0, 0);
+    EXPECT_EQ(item2->getQuantity(), 0);
+    EXPECT_EQ(item2->getPrice(), 0);
 
 }
 

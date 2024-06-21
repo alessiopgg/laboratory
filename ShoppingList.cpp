@@ -5,12 +5,12 @@
 #include <iomanip>
 #include "ShoppingList.h"
 
-ShoppingList::ShoppingList(const string &n):name(n) {}
+ShoppingList::ShoppingList(const string &n) : name(n) {}
 
 void ShoppingList::addItem(shared_ptr<Item> item) { //aggiunge un item alla lista
     shoppingList.emplace(make_pair(item->getName(), item));
-    setTotalPriceList(getTotalPriceList()+item->getPrice()*item->getQuantity());
-    setUncheckedPriceList(getUncheckedPriceList()+item->getPrice()*item->getQuantity());
+    setTotalPriceList(getTotalPriceList() + item->getPrice() * item->getQuantity());
+    setUncheckedPriceList(getUncheckedPriceList() + item->getPrice() * item->getQuantity());
     notify();
 }
 
@@ -26,35 +26,39 @@ void ShoppingList::removeItem(shared_ptr<Item> item) { //rimuove un item dalla l
     }
 }
 
-void ShoppingList::infoShoppingList(const string &n) { //metodo per visualizzare la lista
-    cout<<"\n"<<getName()<<" [ "<<n;
-    cout<<" ]"<<endl << left << setw(20) << "Name"
-              << setw(15) << "Category"
-              << setw(10) << "Quantity"
-              << setw(10) << "Price" << endl;
 
-    cout << string(60, '-') <<endl;
-
-    for (const auto& item : shoppingList) {
-        cout << setw(20) << item.second->getName()
-                  << setw(15) << item.second->getCategory()
-                  << setw(10) << item.second->getQuantity()
-                  << setw(10) << item.second->getPrice()*item.second->getQuantity()<< endl;
+void ShoppingList::infoShoppingList() { //metodo per visualizzare la lista
+    cout << "\n" << getName() << " [ ";
+    for (const auto &user: userList) {
+        cout << user->getUsername() << " ";
     }
-    cout << string(60, '-') <<endl;
+    cout << " ]" << endl << left << setw(20) << "Name"
+         << setw(15) << "Category"
+         << setw(10) << "Quantity"
+         << setw(10) << "Price" << endl;
 
-    cout<<"Unchecked:"<<getUncheckedPriceList()<<setw(10)<<"$"<<
-    "Checked:"<<getCheckedPriceList()<<setw(10)<<"$";
-    cout<<"Total price:"<<getTotalPriceList()<<"$"<<endl<<"\n";
+    cout << string(60, '-') << endl;
 
-    for(auto itemC:checkedList){
-        cout<<"X ";
+    for (const auto &item: shoppingList) {
+        cout << setw(20) << item.second->getName()
+             << setw(15) << item.second->getCategory()
+             << setw(10) << item.second->getQuantity()
+             << setw(10) << item.second->getPrice() * item.second->getQuantity() << endl;
+    }
+    cout << string(60, '-') << endl;
+
+    cout << "Unchecked:" << getUncheckedPriceList() << setw(10) << "$" <<
+         "Checked:" << getCheckedPriceList() << setw(10) << "$";
+    cout << "Total price:" << getTotalPriceList() << "$" << endl << "\n";
+
+    for (auto itemC: checkedList) {
+        cout << "X ";
         cout << setw(20) << itemC->getName()
              << setw(15) << itemC->getCategory()
              << setw(10) << itemC->getQuantity()
-             << setw(10) << itemC->getPrice()*itemC->getQuantity()<< endl;
+             << setw(10) << itemC->getPrice() * itemC->getQuantity() << endl;
     }
-    cout<<"\n\n";
+    cout << "\n\n";
 
 }
 
@@ -67,29 +71,32 @@ void ShoppingList::unregisterObserver(IObserver *observer) {
 }
 
 void ShoppingList::notify() {
-    auto i=userList.end(); //notifica tutti gli utenti iscritti alla lista
-    for(auto o: userList)
+    auto i = userList.end(); //notifica tutti gli utenti iscritti alla lista
+    for (auto o: userList)
         o->update();
 
 }
 
-void ShoppingList::filterCategory(const string &c,const string &n) {
-    cout<<"\n"<<getName()<<" [ "<<n;
-    cout<<" ]"<<" Filter by "<<c<<":"<<endl << left << setw(20) << "Name"
-        << setw(15) << "Category"
-        << setw(10) << "Quantity"
-        << setw(10) << "Price" << endl;
+void ShoppingList::filterCategory(const string &c) {
+    cout << "\n" << getName() << " [ ";
+    for (const auto &user: userList) {
+        cout << user->getUsername() << " ";
+    }
+    cout << "]" << " Filter by " << c << ":" << endl << left << setw(20) << "Name"
+         << setw(15) << "Category"
+         << setw(10) << "Quantity"
+         << setw(10) << "Price" << endl;
 
-    cout << string(60, '-') <<endl;
-    for (const auto& item : shoppingList) {
-        if(item.second->getCategory()==c) {
+    cout << string(60, '-') << endl;
+    for (const auto &item: shoppingList) {
+        if (item.second->getCategory() == c) {
             cout << setw(20) << item.second->getName()
                  << setw(15) << item.second->getCategory()
                  << setw(10) << item.second->getQuantity()
                  << setw(10) << item.second->getPrice() * item.second->getQuantity() << endl;
         }
     }
-    for(auto itemC:checkedList) {
+    for (auto itemC: checkedList) {
         if (itemC->getCategory() == c) {
             cout << "X ";
             cout << setw(20) << itemC->getName()
@@ -98,7 +105,7 @@ void ShoppingList::filterCategory(const string &c,const string &n) {
                  << setw(10) << itemC->getPrice() * itemC->getQuantity() << endl;
         }
     }
-    cout << string(60, '-') <<endl;
+    cout << string(60, '-') << endl;
 
 }
 

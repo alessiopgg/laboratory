@@ -11,8 +11,8 @@ void User::addList(shared_ptr<ShoppingList>shoppingList) { //metodo con cui user
     shoppingList->registerObserver(this);
 }
 
-void User::update() {
-    cout<<"\n("<<getUsername()<<") Notice! "<<endl;
+void User::update() {//richiamato ogni volta che c'è una modifica della lista
+    cout << "\n(" << getUsername() << ") Notice! " << endl;
 }
 
 void User::add(shared_ptr<Item>item, shared_ptr<ShoppingList>shoppingList) { //metodo con cui user può aggiungere un item
@@ -33,28 +33,20 @@ void User::remove(shared_ptr<Item>item, shared_ptr<ShoppingList>shoppingList) { 
 void User::filterList(string c, shared_ptr<ShoppingList> shoppingList) {
     for (auto s: userShoppingList) {
         if (s.first == shoppingList->getName()) {
-            shoppingList->filterCategory(c,getUsername());
+            shoppingList->filterCategory(c);
         }
     }
 }
 void User::printList(shared_ptr<ShoppingList> shoppingList) {
     for (auto s: userShoppingList) {
         if (s.first == shoppingList->getName()) {
-            shoppingList->infoShoppingList(getUsername());
+            shoppingList->infoShoppingList();
         }
     }
 }
 
-void User::setUsername(const string &username) {
-    User::username = username;
-}
-
 const multimap<string, shared_ptr<ShoppingList>> &User::getUserShoppingList() const {
     return userShoppingList;
-}
-
-void User::setUserShoppingList(const multimap<string, shared_ptr<ShoppingList>> &userShoppingList) {
-    User::userShoppingList = userShoppingList;
 }
 
 const string &User::getUsername() const {

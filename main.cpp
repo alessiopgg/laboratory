@@ -2,18 +2,22 @@
 #include "User.h"
 
 int main() {
+    //creazione utenti
     shared_ptr<User>user1= make_shared<User>("Alice");
     shared_ptr<User>user2= make_shared<User>("Carl");
 
+    //creazione liste
     shared_ptr<ShoppingList>list1= make_shared<ShoppingList>("Groceries");
     shared_ptr<ShoppingList>list2= make_shared<ShoppingList>("Household Item");
     shared_ptr<ShoppingList>list3= make_shared<ShoppingList>("Office Supplies");
 
+    //iscrizione utenti alle liste
     user1->addList(list1);
     user1->addList(list2);
     user2->addList(list2);
     user2->addList(list3);
 
+    //creazione item
     shared_ptr<Item> item1 = make_shared<Item>("Apples", "Fruits", 5, 1.5);
     shared_ptr<Item> item2 = make_shared<Item>("Bread", "Groceries", 2, 2.0);
     shared_ptr<Item> item3 = make_shared<Item>("Milk", "Dairy", 1, 3.0);
@@ -29,7 +33,8 @@ int main() {
     shared_ptr<Item> item13 = make_shared<Item>("Chocolate", "Sweets", 2, 3.5);
     shared_ptr<Item> item14 = make_shared<Item>("Coffee", "Beverages", 1, 5.0);
     shared_ptr<Item> item15 = make_shared<Item>("Salmon", "Fish", 1, 8.0);
-    
+
+    //utenti aggiungono item alle liste
     user1->add(item1, list1);
     user1->add(item2, list1);
     user1->add(item3, list1);
@@ -46,13 +51,16 @@ int main() {
     user2->add(item14, list3);
     user2->add(item15, list3);
 
+    //utenti eliminano item dalle liste
     user1->remove(item1,list1);
     user2->remove(item7, list2);
 
+    //stampa liste
     user1->printList(list1);
     user1->printList(list2);
     user2->printList(list3);
 
+    //stampa per categoria
     user1->filterList("Vegetables",list2);
 
     return 0;

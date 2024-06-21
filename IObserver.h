@@ -13,6 +13,9 @@ using namespace std;
 
 class IObserver{ //interfaccia
 public:
-    virtual void update() =0;
-    virtual ~IObserver()=default;
+    virtual void update() = 0;
+
+    virtual const string &getUsername() const = 0;
+
+    virtual ~IObserver() = default;
 };

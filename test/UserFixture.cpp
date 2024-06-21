@@ -45,5 +45,14 @@ TEST_F(UserFixture, UpdateTest) {
     user->update();
     std::string output = testing::internal::GetCapturedStdout();
     ASSERT_EQ(output, "\n(Alice) Notice! \n");
+
+    shared_ptr<User> user1 = make_shared<User>("Alex");
+    testing::internal::CaptureStdout();
+    user1->addList(shoppingList);
+    user1->add(item1, shoppingList);
+    std::string output1 = testing::internal::GetCapturedStdout();
+    ASSERT_EQ(output1, "\n(Alice) Notice! \n\n(Alex) Notice! \n");
+
+
 }
 
