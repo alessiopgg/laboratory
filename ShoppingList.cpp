@@ -32,7 +32,7 @@ void ShoppingList::infoShoppingList() { //metodo per visualizzare la lista
     for (const auto &user: userList) {
         cout << user->getUsername() << " ";
     }
-    cout << " ]" << endl << left << setw(20) << "Name"
+    cout << "]" << endl << left << setw(20) << "Name"
          << setw(15) << "Category"
          << setw(10) << "Quantity"
          << setw(10) << "Price" << endl;
