@@ -3,13 +3,13 @@
 
 int main() {
     //creazione utenti
-    shared_ptr<User>user1= make_shared<User>("Alice");
-    shared_ptr<User>user2= make_shared<User>("Carl");
+    shared_ptr<User> user1 = make_shared<User>("Alice");
+    shared_ptr<User> user2 = make_shared<User>("Carl");
 
     //creazione liste
-    shared_ptr<ShoppingList>list1= make_shared<ShoppingList>("Groceries");
-    shared_ptr<ShoppingList>list2= make_shared<ShoppingList>("Household Item");
-    shared_ptr<ShoppingList>list3= make_shared<ShoppingList>("Office Supplies");
+    shared_ptr<ShoppingList> list1 = make_shared<ShoppingList>("Groceries");
+    shared_ptr<ShoppingList> list2 = make_shared<ShoppingList>("Household Item");
+    shared_ptr<ShoppingList> list3 = make_shared<ShoppingList>("Office Supplies");
 
     //iscrizione utenti alle liste
     user1->addList(list1);
@@ -52,7 +52,7 @@ int main() {
     user2->add(item15, list3);
 
     //utenti eliminano item dalle liste
-    user1->remove(item1,list1);
+    user1->remove(item1, list1);
     user2->remove(item7, list2);
 
     //stampa liste
@@ -61,7 +61,7 @@ int main() {
     user2->printList(list3);
 
     //stampa per categoria
-    user1->filterList("Vegetables",list2);
+    user1->filterList("Vegetables", list2);
 
     return 0;
 }

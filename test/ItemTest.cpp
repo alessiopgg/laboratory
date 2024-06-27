@@ -8,6 +8,7 @@
 
 TEST(ItemTest,ConstructorTest){ //test costruttore
     shared_ptr<Item>item=make_shared<Item>("name","category",5,7);
+    //test sui getMethod
     EXPECT_EQ(item->getName(),"name");
     EXPECT_EQ(item->getCategory(), "category");
     EXPECT_EQ(item->getQuantity(), 5);

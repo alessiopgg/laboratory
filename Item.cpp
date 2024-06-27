@@ -33,9 +33,9 @@ int Item::getQuantity() const {
 }
 
 void Item::setQuantity(int quantity) {
-        if (quantity<0) {
-            quantity = abs(quantity);
-        }
+    if (quantity < 0) {
+        quantity = abs(quantity);
+    }
     this->quantity = quantity;
 }
 

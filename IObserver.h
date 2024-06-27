@@ -9,9 +9,10 @@
 
 #include<iostream>
 #include <memory>
+
 using namespace std;
 
-class IObserver{ //interfaccia
+class IObserver { //interfaccia
 public:
     virtual void update() = 0;
 

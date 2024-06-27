@@ -4,6 +4,7 @@
 
 #ifndef LABORATORY_USER_H
 #define LABORATORY_USER_H
+
 #include "ShoppingList.h"
 
 class User : public IObserver {
@@ -13,13 +14,13 @@ private:
 public:
     User(const string &n);
 
-    void addList(shared_ptr<ShoppingList> shoppingList);
+    void addList(shared_ptr<ShoppingList> shoppingList);//aggiunge una lista
 
     void update() override;
 
-    void add(shared_ptr<Item> item, shared_ptr<ShoppingList> shoppingList);
+    void add(shared_ptr<Item> item, shared_ptr<ShoppingList> shoppingList);//aggiunge un item
 
-    void remove(shared_ptr<Item> item, shared_ptr<ShoppingList> shoppingList);
+    void remove(shared_ptr<Item> item, shared_ptr<ShoppingList> shoppingList);//rimuove un item
 
     void filterList(string c, shared_ptr<ShoppingList> shoppingList);
 

@@ -9,12 +9,16 @@
 
 #include<iostream>
 #include "IObserver.h"
+
 using namespace std;
 
-class ISubject{ //interfaccia
+class ISubject { //interfaccia
 public:
-    virtual void registerObserver(IObserver*observer)=0;
-    virtual void unregisterObserver(IObserver*observer)=0;
-    virtual void notify()=0;
-    virtual ~ISubject()=default;
+    virtual void registerObserver(IObserver *observer) = 0;
+
+    virtual void unregisterObserver(IObserver *observer) = 0;
+
+    virtual void notify() = 0;
+
+    virtual ~ISubject() = default;
 };

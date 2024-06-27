@@ -23,12 +23,18 @@ protected:
 };
 
 TEST_F(UserFixture,AddTest){
-    user->add(item1,shoppingList);
-    ASSERT_EQ(shoppingList->getUncheckedPriceList(),3*1.5);
-    ASSERT_EQ(shoppingList->getTotalPriceList(),3*1.5);
-    user->add(item2,shoppingList);
-    ASSERT_EQ(shoppingList->getUncheckedPriceList(),3*1.5+4);
-    ASSERT_EQ(shoppingList->getTotalPriceList(),3*1.5+4);
+    user->add(item1, shoppingList);
+    ASSERT_EQ(shoppingList->getUncheckedPriceList(), 3 * 1.5);
+    ASSERT_EQ(shoppingList->getTotalPriceList(), 3 * 1.5);
+    user->add(item2, shoppingList);
+    ASSERT_EQ(shoppingList->getUncheckedPriceList(), 3 * 1.5 + 4);
+    ASSERT_EQ(shoppingList->getTotalPriceList(), 3 * 1.5 + 4);
+
+    //aggiunta su lista a cui non è iscritto
+    ASSERT_EQ(shoppingList1->getTotalPriceList(), 0);
+    user->add(item1, shoppingList1);
+    ASSERT_EQ(shoppingList1->getTotalPriceList(), 0);
+
 }
 
 TEST_F(UserFixture, RemoveTest) {
@@ -38,9 +44,10 @@ TEST_F(UserFixture, RemoveTest) {
     user->remove(item1, shoppingList);
     ASSERT_EQ(shoppingList->getCheckedPriceList(), 3 * 1.5);
     ASSERT_EQ(shoppingList->getUncheckedPriceList(), 4);
+
 }
 
-TEST_F(UserFixture, UpdateTest) {
+TEST_F(UserFixture, UpdateTest) {//test update
     testing::internal::CaptureStdout();
     user->update();
     std::string output = testing::internal::GetCapturedStdout();

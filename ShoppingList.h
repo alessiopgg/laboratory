@@ -41,12 +41,19 @@ public:
     void filterCategory(const string &c);
 
     const string &getName() const;
+
     float getTotalPriceList() const;
+
     float getUncheckedPriceList() const;
+
     void setUncheckedPriceList(float uncheckedPriceList);
+
     float getCheckedPriceList() const;
+
     void setCheckedPriceList(float checkedPriceList);
+
     void setTotalPriceList(float totalPriceList);
+
     const list<IObserver *> &getUserList() const;
 };
 
